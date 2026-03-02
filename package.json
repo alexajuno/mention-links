@@ -1,0 +1,85 @@
+{
+  "name": "mention-links",
+  "displayName": "Mention Links",
+  "description": "Autocompletion, navigation, and backlinks for @mentions in markdown files",
+  "version": "0.1.0",
+  "publisher": "ajuno",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Mention Links",
+      "properties": {
+        "mentionLinks.peopleDirectory": {
+          "type": "string",
+          "default": "people",
+          "description": "Relative path to the directory containing people profile markdown files"
+        },
+        "mentionLinks.mentionPrefix": {
+          "type": "string",
+          "default": "@",
+          "description": "Character prefix that triggers mention recognition"
+        },
+        "mentionLinks.filePatterns": {
+          "type": "string",
+          "default": "**/*.md",
+          "description": "Glob pattern for files to scan for mentions"
+        },
+        "mentionLinks.resolvedColor": {
+          "type": "string",
+          "default": "#4EC9B0",
+          "description": "Color for resolved @mentions (profile exists)"
+        },
+        "mentionLinks.unresolvedColor": {
+          "type": "string",
+          "default": "#888888",
+          "description": "Color for unresolved @mentions (no profile)"
+        }
+      }
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "mentionLinks.backlinks",
+          "name": "Mention Links",
+          "when": "resourceLangId == markdown"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "mentionLinks.createProfile",
+        "title": "Create Person Profile",
+        "category": "Mention Links"
+      },
+      {
+        "command": "mentionLinks.refreshIndex",
+        "title": "Refresh Mention Index",
+        "category": "Mention Links"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "compile": "tsc -p ./ --noEmit",
+    "typecheck": "tsc -p ./ --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "package": "npx @vscode/vsce package",
+    "vscode:prepublish": "node esbuild.js --production"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "@types/vscode": "^1.109.0",
+    "esbuild": "^0.27.3",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}
