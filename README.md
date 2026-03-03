@@ -76,4 +76,4 @@ npm run package  # create .vsix package
 
 ## License
 
-MIT
+[MIT](LICENSE)
