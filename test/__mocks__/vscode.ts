@@ -21,6 +21,10 @@ export class Uri {
     const joined = [base.path, ...pathSegments].join("/");
     return new Uri(base.scheme, base.authority, joined, base.query, base.fragment);
   }
+
+  toString(): string {
+    return `${this.scheme}://${this.authority}${this.path}`;
+  }
 }
 
 export class EventEmitter<T> {
